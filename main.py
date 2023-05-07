@@ -18,15 +18,17 @@ driver = webdriver.Chrome(options=options)  # 브라우저 창 안보이기
 driver.get("https://danawa.com")
 time.sleep(2)
 
-searchBox = driver.find_element(By.CLASS_NAME,"search__input")
-searchBox.click()
-searchBox.send_keys("레노버")
-time.sleep(2)
-search = driver.find_element(By.CLASS_NAME, "search__submit")
-search.click()
+def Search(): #버튼 누를시 실행할 함수
+    검색어=txt.get()
+    searchBox = driver.find_element(By.CLASS_NAME,"search__input")
+    searchBox.click()
+    time.sleep(2)
+    searchBox.send_keys(검색어)
+    search = driver.find_element(By.CLASS_NAME, "search__submit")
+    search.click()
+
+#soup 초기화
 soup = BeautifulSoup(driver.page_source, 'html.parser')
-
-
 goods_list = soup.select('div.main_prodlist.main_prodlist_list > ul > li')
 
 # 상품 리스트 확인
