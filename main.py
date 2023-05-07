@@ -7,18 +7,20 @@ from bs4 import BeautifulSoup
 import tkinter.font
 import time
 
-
-
 options = Options()
-options.add_argument('headless');  # headless는 화면이나 페이지 이동을 표시하지 않고 동작하는 모드
+# headless는 화면이나 페이지 이동을 표시하지 않고 동작하는 모드
+options.add_argument('headless');
 # webdirver 설정(Chrome, Firefox 등)
+
 driver = webdriver.Chrome(options=options)  # 브라우저 창 안보이기
 #driver = webdriver.Chrome() # 브라우저 창 보이기
 
+#다나와 사이트 연결
 driver.get("https://danawa.com")
 time.sleep(2)
 
-def Search(): #버튼 누를시 실행할 함수
+#검색 버튼 누를시 실행할 함수
+def Search():
     검색어=txt.get()
     searchBox = driver.find_element(By.CLASS_NAME,"search__input")
     searchBox.click()
@@ -31,10 +33,7 @@ def Search(): #버튼 누를시 실행할 함수
 soup = BeautifulSoup(driver.page_source, 'html.parser')
 goods_list = soup.select('div.main_prodlist.main_prodlist_list > ul > li')
 
-# 상품 리스트 확인
-# print(goods_list)
-
-
+# 상품 리스트 검색 반복문
 for v in goods_list:
     new_text = ""
     if v.find('div', class_='prod_main_info'):
